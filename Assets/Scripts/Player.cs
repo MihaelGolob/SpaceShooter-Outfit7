@@ -8,11 +8,12 @@ using UnityEngine;
 
 public interface IDamagable {
     public void TakeDamage(float amount);
+    public bool Dead();
 }
 
 public class Player : MonoBehaviour, IDamagable {
     // Inspector assigned
-    [SerializeField] private float _health = 100f;
+    [SerializeField] [Range(0f, 100f)] private float _health = 100f;
     [Header("Movement")]
     [SerializeField] [Range(5f, 20f)] private float _movementSpeed = 1.0f;
     [SerializeField] [Range(5f, 20f)] private float _rotationSpeed = 2f;
@@ -98,5 +99,9 @@ public class Player : MonoBehaviour, IDamagable {
         // TODO: invoke event and end the game
         if (_health <= 0.001f)
             Debug.Log("Player died");
+    }
+
+    public bool Dead() {
+        return _health <= 0;
     }
 }

@@ -20,4 +20,10 @@ public class GameManager : MonoBehaviour {
     }
     
     // Inspector assigned
+    
+    // Internal variables
+    private bool _tutorialCompleted;
+    private int _currWave;
+    private int _score;
+    
 }

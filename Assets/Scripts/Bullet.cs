@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour {
     [SerializeField] private float _damage;
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _timeToLive = 10f;
+    [Header("Particle effects")] 
+    [SerializeField] private ParticleSystem _sparks;
 
     // Internal variables
     private Vector3 _direction;
@@ -37,12 +39,22 @@ public class Bullet : MonoBehaviour {
         if (!(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Player")))
             return;
 
-        Debug.Log("i've hit " + other.gameObject.name);
-        
         // damage the enemy
         var damageable = other.gameObject.GetComponent<IDamagable>();
-        damageable.TakeDamage(_damage);
+        if (damageable.Dead())
+            return;
         
+        damageable.TakeDamage(_damage);
+
+        // hide the bullet and play effect
+        if (_sparks)
+            _sparks.Play();
+        GetComponent<MeshRenderer>().enabled = false;
+        StartCoroutine(DelayDestroy(0.6f));
+    }
+
+    private IEnumerator DelayDestroy(float delay) {
+        yield return new WaitForSeconds(delay);
         // destroy the bullet
         Destroy(gameObject);
     }
