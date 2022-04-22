@@ -19,7 +19,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable {
     [SerializeField] private ParticleSystem _explosionParticleSystem;
     [SerializeField] private List<ParticleSystem> _particleSystemsToStop;
     [Header("Powerups")] 
-    [SerializeField] private float _dropChance = 0.3f;
+    [SerializeField] [Range(0f, 1f)] private float _dropChance = 0.3f;
     [SerializeField] private List<GameObject> _powerupsToDrop = new List<GameObject>();
     [Header("Game events")] 
     [SerializeField] protected GameEvent _onDiedEvent;
@@ -72,16 +72,14 @@ public abstract class Enemy : MonoBehaviour, IDamagable {
         // clean up
         var mesh = GetComponent<MeshRenderer>();
         mesh.enabled = false;
+        // stop particle effects
         foreach (var ps in _particleSystemsToStop)
             ps.Stop();
-
         _died = true;
         // invoke event
         _onDiedEvent.Invoke(gameObject);
-
         // drop power up
         DropPowerup();
-        
         yield return new WaitForSeconds(5f);
         Destroy(gameObject);
     }
@@ -90,7 +88,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable {
         if (_powerupsToDrop.Count == 0) return;
 
         var rand = Random.Range(0f, 1f);
-        if (rand > _dropChance) return;
+        if (rand >= _dropChance) return;
         
         // drop a random power up
         var r = Random.Range(0, _powerupsToDrop.Count - 1);

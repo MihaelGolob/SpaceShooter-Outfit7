@@ -53,6 +53,7 @@ public abstract class Powerup : MonoBehaviour {
         GetComponent<MeshRenderer>().enabled = false;
         if (_pickUpEffect)
             _pickUpEffect.Play();
+        // TODO: set up a pick up effect
         yield return new WaitForSeconds(0.5f);
         Activate(player);
     }

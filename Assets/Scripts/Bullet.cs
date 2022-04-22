@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.IMGUI.Controls;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Bullet : MonoBehaviour {
     // Serializable
@@ -36,6 +34,12 @@ public class Bullet : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
+        // bounce the bullet back
+        if (other.gameObject.CompareTag("Shield")) {
+            _direction = -_direction + new Vector3(Random.Range(0.0f, 0.2f), Random.Range(0.0f, 0.2f));
+            return;
+        }
+        
         if (!(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Player")))
             return;
 

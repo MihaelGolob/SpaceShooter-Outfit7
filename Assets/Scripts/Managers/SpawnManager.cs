@@ -37,7 +37,8 @@ public class SpawnManager : MonoBehaviour {
         for (var i = 0; i < wave.numEnemy; i++) {
             // spawn enemy
             var r = Random.Range(0, _enemyPrefabRefs.Count);
-            var go = Instantiate(_enemyPrefabRefs[r], transform) as GameObject;
+            var go = Instantiate(_enemyPrefabRefs[r], transform);
+            go.transform.position = _spawnPoints[0].position;
             var en = go.GetComponent<Enemy>();
             en.BulletParent = _bulletParent;
             _enemies.Add(en);

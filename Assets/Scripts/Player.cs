@@ -34,6 +34,7 @@ public class Player : MonoBehaviour, IDamagable {
     
     // shooting
     private float _shootTimer;
+    private bool _shieldActivated;
     
     // movement
     private float _timeMoving;
@@ -96,14 +97,23 @@ public class Player : MonoBehaviour, IDamagable {
     }
 
     private IEnumerator ActivateShieldInternal(int amount) {
-        // TODO: actually make the shield useful (so the player can't get hurt)
+        _shieldActivated = true;
         _shield.gameObject.SetActive(true);
         yield return new WaitForSeconds(amount);
+        _shieldActivated = false;
         _shield.gameObject.SetActive(false);
     } 
+    private IEnumerator MachineGunInternal(float mult, float duration) {
+        var oldCoolDown = _coolDownPeriod;
+        _coolDownPeriod /= mult;
+        yield return new WaitForSeconds(duration);
+        _coolDownPeriod = oldCoolDown;
+    }
 
     // public methods
     public void TakeDamage(float amount) {
+        if (_shieldActivated) return;
+        
         _health = Mathf.Clamp(_health - amount, 0f, 100f);
 
         // TODO: invoke event and end the game
@@ -118,4 +128,9 @@ public class Player : MonoBehaviour, IDamagable {
     public void ActivateShield(int amount) {
         StartCoroutine(ActivateShieldInternal(amount));
     }
+
+    public void MachineGun(float mult, float duration) {
+        StartCoroutine(MachineGunInternal(mult, duration));
+    }
+
 }
