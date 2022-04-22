@@ -23,6 +23,8 @@ public class Player : MonoBehaviour, IDamagable {
     [SerializeField] private Transform _bulletSpawnPoint;
     [SerializeField] private Transform _bulletsParent;
     [SerializeField] [Range(0.01f, 1f)] private float _coolDownPeriod = 0.4f;
+    [Header("Power ups")] 
+    [SerializeField] private GameObject _shield;
 
     // internal variables
     private Vector3 _pos;
@@ -93,6 +95,14 @@ public class Player : MonoBehaviour, IDamagable {
         transform.Rotate(Time.deltaTime * _rotationSpeed * rot, Space.Self);
     }
 
+    private IEnumerator ActivateShieldInternal(int amount) {
+        // TODO: actually make the shield useful (so the player can't get hurt)
+        _shield.gameObject.SetActive(true);
+        yield return new WaitForSeconds(amount);
+        _shield.gameObject.SetActive(false);
+    } 
+
+    // public methods
     public void TakeDamage(float amount) {
         _health = Mathf.Clamp(_health - amount, 0f, 100f);
 
@@ -103,5 +113,9 @@ public class Player : MonoBehaviour, IDamagable {
 
     public bool Dead() {
         return _health <= 0;
+    }
+
+    public void ActivateShield(int amount) {
+        StartCoroutine(ActivateShieldInternal(amount));
     }
 }

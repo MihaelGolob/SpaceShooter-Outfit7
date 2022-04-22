@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e251da016e13d6c40a188e786afd2378, type: 2}
+  - {fileID: 2100000, guid: 73847fc4fb99162448a1fe0fd636c712, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -145,13 +145,26 @@ MonoBehaviour:
   _particleSystemsToStop:
   - {fileID: 1016266630154180345}
   - {fileID: 3021262167476139651}
+  _dropChance: 0.3
+  _powerupsToDrop:
+  - {fileID: 3305931981787317369, guid: 44e1b80764ac9c440add9a62158c714d, type: 3}
   _onDiedEvent: {fileID: 11400000, guid: f79e938d83c88744692d98205dbe9a75, type: 2}
+  _tracking: 0
   _rotateSpeed: 6.7
   _angleMistake: 7
   _speed: 0.17
   _routes:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8498347466846010319, guid: 5bc473e503d459b469e6fec97d20ec9b, type: 3}
+  - {fileID: 4327521661200627345, guid: 8c9b257e650c2ca43ae0a045fa50d94c, type: 3}
+  - {fileID: 8849456530936801685, guid: 8a8eba66a489dd7439c16c1dfcca4e0a, type: 3}
+  - {fileID: 6379278710000642890, guid: 09c2a357b82921d438cf150179a8fe5f, type: 3}
+  - {fileID: 1388966578769167019, guid: 77dec1efd22f6e544b64effc450f1feb, type: 3}
+  - {fileID: 1673680684986391735, guid: 8749be3e3f0bef54da9dea8f838d3e90, type: 3}
+  - {fileID: 8054536038990206842, guid: 112344fafca61b64c88a1aa5e0ea269f, type: 3}
+  - {fileID: 8188299260648686221, guid: 831e686abbbbf344c8e6ae57404bfe61, type: 3}
+  - {fileID: 7766522177398347385, guid: b9c8ccf5b3b858242a3c39032047f5d6, type: 3}
+  - {fileID: 4370315294671376787, guid: b6ab13f80162e424387638e8338e7c3f, type: 3}
+  - {fileID: 5965756898191408570, guid: c2e62aa4ca4350b478051ededf693578, type: 3}
   _numStopPoints: 1
 --- !u!114 &6717771527073690727
 MonoBehaviour:

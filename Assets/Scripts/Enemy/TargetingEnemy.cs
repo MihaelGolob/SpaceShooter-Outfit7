@@ -5,6 +5,7 @@ using UnityEngine;
 public class TargetingEnemy : Enemy {
     // Inspector assigned
     [Header("Rotate settings")]
+    [SerializeField] protected bool _tracking = false;
     [SerializeField] [Range(0.1f, 20f)] protected float _rotateSpeed = 15f;
     [SerializeField] [Range(1f, 50f)] protected float _angleMistake = 20f;
 
@@ -26,6 +27,8 @@ public class TargetingEnemy : Enemy {
     private int _stopPointCounter;
     private bool _shooting;
 
+    private Vector3 _oldPlayerPos;
+
     protected override void Start() {
         base.Start();
         _angleOffset = Random.Range(-_angleMistake, _angleMistake);
@@ -35,8 +38,8 @@ public class TargetingEnemy : Enemy {
         _bc.Initialize(_routes);
         
         _moveParameter = 0;
-        _currRoute = 0;
-
+        _currRoute = Random.Range(0, _routes.Count);
+        
         _shooting = false;
         _stopPoints = new List<float>(_numStopPoints);
         // choose random points to stop and shoot
@@ -51,7 +54,7 @@ public class TargetingEnemy : Enemy {
         
         if (_shooting) {
             Shoot();
-            RotateTo(_player.transform.position);
+            RotateTo(_tracking ? _player.transform.position : _oldPlayerPos);
             return;
         }
         
@@ -80,6 +83,7 @@ public class TargetingEnemy : Enemy {
             _shooting = true;
             _shootTimer = 0;
             _stopPointCounter++;
+            _oldPlayerPos = _player.transform.position;
             StartCoroutine(StopShooting());
         }
     }
