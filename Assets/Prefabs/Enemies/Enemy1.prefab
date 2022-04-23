@@ -1,5 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &424451244075544355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8092884030618944601}
+  - component: {fileID: 1602721941488915685}
+  - component: {fileID: 2091622733144823828}
+  m_Layer: 0
+  m_Name: Explosion Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8092884030618944601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424451244075544355}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5257245954062524811}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1602721941488915685
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424451244075544355}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 17
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2091622733144823828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424451244075544355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb8d84ddf1a64b42b0e5793836dbb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explosionDamage: 10
 --- !u!1 &5251457816821827557
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,6 +95,7 @@ Transform:
   - {fileID: 925002282328678397}
   - {fileID: 3107879971879780231}
   - {fileID: 995481867509137222}
+  - {fileID: 8092884030618944601}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -141,6 +200,16 @@ MonoBehaviour:
   _bulletsParent: {fileID: 0}
   _minShootInterval: 0.3
   _maxShootInterval: 2.52
+  _explosionCollider: {fileID: 1602721941488915685}
+  _bulletSounds:
+  - {fileID: 8300000, guid: 7fa97a57e83e686458fc95af0162a86e, type: 3}
+  - {fileID: 8300000, guid: 133ee71ac704b0642892f62df22a18fb, type: 3}
+  - {fileID: 8300000, guid: bee9e674c1c0367469658cec6706a29b, type: 3}
+  - {fileID: 8300000, guid: 9c6f0f38ac670124abf5225c1318ece0, type: 3}
+  - {fileID: 8300000, guid: 3159b99affc62524191efe5e4340fd77, type: 3}
+  _bulletVolume: 0.01
+  _explosion: {fileID: 8300000, guid: 01a1db5e8b5819744aa5a89b278d3378, type: 3}
+  _explosionVolume: 0.1
   _explosionParticleSystem: {fileID: 1116783773232616478}
   _particleSystemsToStop:
   - {fileID: 1016266630154180345}
@@ -149,6 +218,9 @@ MonoBehaviour:
   _powerupsToDrop:
   - {fileID: 3305931981787317369, guid: 44e1b80764ac9c440add9a62158c714d, type: 3}
   - {fileID: 3007817220136091082, guid: a6c8ee3d19df8404488b3afef7042119, type: 3}
+  - {fileID: 7689689854818086593, guid: 1ece85ff01ce2cd42a854bce9c9613cb, type: 3}
+  - {fileID: 5562372592608952538, guid: 36a02a31e2f22704b8030cab85691322, type: 3}
+  - {fileID: 7460757011133234994, guid: 3779432f5d50aa1449b6c4b58b49a1df, type: 3}
   _onDiedEvent: {fileID: 11400000, guid: f79e938d83c88744692d98205dbe9a75, type: 2}
   _tracking: 1
   _rotateSpeed: 6.7

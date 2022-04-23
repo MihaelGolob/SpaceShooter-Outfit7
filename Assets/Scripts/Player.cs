@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public interface IDamagable {
     public void TakeDamage(float amount);
@@ -23,6 +24,15 @@ public class Player : MonoBehaviour, IDamagable {
     [SerializeField] private Transform _bulletSpawnPoint;
     [SerializeField] private Transform _bulletsParent;
     [SerializeField] [Range(0.01f, 1f)] private float _coolDownPeriod = 0.4f;
+    [Header("Extra Turrets")] 
+    [SerializeField] private GameObject _leftTurret;
+    [SerializeField] private GameObject _rightTurret;
+    [SerializeField] private Transform _leftTurretPoint;
+    [SerializeField] private Transform _rightTurretPoint;
+    [Header("Effects")] 
+    [SerializeField] private List<ParticleSystem> _lowHealthSmoke = new List<ParticleSystem>();
+    [SerializeField] private List<AudioClip> _bulletFireSounds = new List<AudioClip>();
+    [SerializeField] [Range(0f, 1f)] private float _bulletVolume = 0.1f;
     [Header("Power ups")] 
     [SerializeField] private GameObject _shield;
 
@@ -31,17 +41,23 @@ public class Player : MonoBehaviour, IDamagable {
     private Rigidbody _rb;
     private Camera _cam;
     private CharacterController _controller;
+
+    private int _numOfSmokes;
+    private int _activeSmokes;
     
     // shooting
     private float _shootTimer;
     private bool _shieldActivated;
+    private bool _leftTurretActivated;
+    private bool _rightTurretActivated;
     
     // movement
     private float _timeMoving;
-    
     // input
     private Vector3 _mousePosWorldSpace;
-    
+    // public members
+    public bool BothTurretsActive => _leftTurretActivated && _rightTurretActivated;
+
     private void Start() {
         _pos = transform.position;
         _rb = GetComponent<Rigidbody>();
@@ -57,6 +73,40 @@ public class Player : MonoBehaviour, IDamagable {
         
         GetInput();
         Move();
+        UpdateSmoke();
+    }
+
+    private void UpdateSmoke() {
+        _numOfSmokes = 0;
+        if (_health <= 60) _numOfSmokes++;
+        if (_health <= 40) _numOfSmokes++;
+        if (_health <= 20) _numOfSmokes++;
+
+        if (_numOfSmokes == _activeSmokes)
+            return;
+
+        if (_activeSmokes > _numOfSmokes) {
+            for (var i = 0; i < _activeSmokes - _numOfSmokes; i++) {
+                var r = Random.Range(0, _lowHealthSmoke.Count);
+                if (!_lowHealthSmoke[r].isPlaying) {
+                    i--;
+                    continue;
+                }
+                _lowHealthSmoke[r].Stop();
+                _activeSmokes--;
+            }
+            return;
+        }
+        
+        for (var i = 0; i < _numOfSmokes - _activeSmokes; i++) {
+            var r = Random.Range(0, _lowHealthSmoke.Count);
+            if (_lowHealthSmoke[r].isPlaying) {
+                i--;
+                continue;
+            }
+            _lowHealthSmoke[r].Play();
+            _activeSmokes++;
+        }
     }
 
     private void GetInput() {
@@ -66,21 +116,29 @@ public class Player : MonoBehaviour, IDamagable {
         _mousePosWorldSpace = _cam.ScreenToWorldPoint(new Vector3(mousePosPixels.x, mousePosPixels.y, 10.0f));
         
         // shoot input
-        if (Input.GetMouseButton(0)) {
-            Shoot();
+        if (Input.GetMouseButton(0) && _shootTimer <= 0) {
+            Shoot(_bulletSpawnPoint);
+            if (_leftTurretActivated) Shoot(_leftTurretPoint);
+            if (_rightTurretActivated) Shoot(_rightTurretPoint);
+            _shootTimer = _coolDownPeriod;
         }
     }
 
-    private void Shoot() {
-        if (_shootTimer > 0) return;
+    private void Shoot(Transform from) {
         // spawn bullet
         var go = Instantiate(_bulletPrefab, _bulletSpawnPoint);
         go.transform.parent = _bulletsParent;
+        go.transform.position = from.position;
         // bullet setup
         var bu = go.GetComponent<Bullet>();
         bu.Direction = transform.forward;
+        bu.PlayerShooter = true;
+        PlayBulletSound();
+    }
 
-        _shootTimer = _coolDownPeriod;
+    private void PlayBulletSound() {
+        var r = Random.Range(0, _bulletFireSounds.Count);
+        AudioManager.instance.PlaySound(_bulletFireSounds[r], _bulletVolume);
     }
 
     private void Move() {
@@ -133,4 +191,19 @@ public class Player : MonoBehaviour, IDamagable {
         StartCoroutine(MachineGunInternal(mult, duration));
     }
 
+    public void AddHealth(float amount) {
+        _health += amount;
+    }
+
+    public void AddTurret() {
+        if (!_leftTurretActivated) {
+            _leftTurretActivated = true;
+            _leftTurret.SetActive(true);
+            return;
+        }
+        if (!_rightTurretActivated) {
+            _rightTurretActivated = true;
+            _rightTurret.SetActive(true);
+        }
+    }
 }

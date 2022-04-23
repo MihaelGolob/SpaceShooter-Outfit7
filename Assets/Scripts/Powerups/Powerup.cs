@@ -2,13 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public abstract class Powerup : MonoBehaviour {
     // Inspector assigned
-    [SerializeField] private float _rotationSpeed;
-    [Header("Particle effects")] 
-    [SerializeField] private ParticleSystem _pickUpEffect;
+    [SerializeField] private float _rotationSpeed = 0.14f;
+    [Header("Effects")] 
+    [SerializeField] private ParticleSystem _pickUpParticleEffect;
+    [FormerlySerializedAs("_pickUpSoundEffect")] 
+    [SerializeField] private AudioClip _activateSound;
+    [FormerlySerializedAs("_pickUpSoundVolume")] 
+    [SerializeField] [Range(0f, 1f)] private float _activateSoundVolume = 0.1f;
     
     // internal variables
     private bool _hasBeenPickedUp;
@@ -50,11 +55,23 @@ public abstract class Powerup : MonoBehaviour {
     }
 
     private IEnumerator PickUpInternal(Player player) {
+        // disable meshes
         GetComponent<MeshRenderer>().enabled = false;
-        if (_pickUpEffect)
-            _pickUpEffect.Play();
+        for (var i = 0; i < transform.childCount; i++)
+            transform.GetChild(i).gameObject.SetActive(false);
+        
+        // play particle effect
+        if (_pickUpParticleEffect)
+            _pickUpParticleEffect.Play();
         // TODO: set up a pick up effect
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
+        // play sound
+        if (_activateSound)
+            AudioManager.instance.PlaySound(_activateSound, _activateSoundVolume);
+        // activate powerup
         Activate(player);
+
+        yield return new WaitForSeconds(0.2f);
+        Destroy(gameObject);
     }
 }

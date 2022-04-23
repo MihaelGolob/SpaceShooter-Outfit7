@@ -19,7 +19,6 @@ public class SpawnManager : MonoBehaviour {
     [SerializeField] private bool _enabled = false;
     [SerializeField] private List<GameObject> _enemyPrefabRefs = new List<GameObject>();
     [SerializeField] private List<GameObject> _asteroidPrefabRefs = new List<GameObject>();
-    [SerializeField] private List<Transform> _bezierCurves = new List<Transform>();
     [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
     [SerializeField] private Transform _bulletParent;
     
@@ -64,5 +63,10 @@ public class SpawnManager : MonoBehaviour {
     public void OnEnemyDied(GameObject enemy) {
         // TODO: somehow call this method to remove enemy
         _enemies.Remove(enemy.GetComponent<Enemy>());
+    }
+
+    public void DestroyAllEnemies() {
+        foreach (var e in _enemies) 
+            e.TakeDamage(1000);
     }
 }

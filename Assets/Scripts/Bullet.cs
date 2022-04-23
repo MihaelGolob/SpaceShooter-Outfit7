@@ -10,15 +10,21 @@ public class Bullet : MonoBehaviour {
     [SerializeField] private float _timeToLive = 10f;
     [Header("Particle effects")] 
     [SerializeField] private ParticleSystem _sparks;
-
+    
     // Internal variables
     private Vector3 _direction;
     private float _timeAlive;
+    private bool _playerShooter;
     
     // public properties
     public Vector3 Direction {
         get => _direction;
         set => _direction = value.normalized;
+    }
+
+    public bool PlayerShooter {
+        get => _playerShooter;
+        set => _playerShooter = value;
     }
 
     private void Update() {
@@ -34,6 +40,7 @@ public class Bullet : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
+        if ((other.CompareTag("Shield") || other.CompareTag("Player")) && _playerShooter) return;
         // bounce the bullet back
         if (other.gameObject.CompareTag("Shield")) {
             _direction = -_direction + new Vector3(Random.Range(0.0f, 0.2f), Random.Range(0.0f, 0.2f));
@@ -43,11 +50,10 @@ public class Bullet : MonoBehaviour {
         if (!(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Player")))
             return;
 
-        // damage the enemy
+        // do damage
         var damageable = other.gameObject.GetComponent<IDamagable>();
         if (damageable.Dead())
             return;
-        
         damageable.TakeDamage(_damage);
 
         // hide the bullet and play effect
