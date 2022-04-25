@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour {
@@ -21,9 +22,23 @@ public class SpawnManager : MonoBehaviour {
     [SerializeField] private List<GameObject> _asteroidPrefabRefs = new List<GameObject>();
     [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
     [SerializeField] private Transform _bulletParent;
+    [Header("Game events")] 
+    [SerializeField] private GameEvent _onEnemyDied;
     
     // Internal variables
     private List<Enemy> _enemies = new List<Enemy>();
+
+    private GameEventListener _onEnemyDiedListener;
+
+    private void Awake() {
+        _onEnemyDiedListener = new GameEventListener();
+        _onEnemyDiedListener.GameEvent = _onEnemyDied;
+        _onEnemyDiedListener.Register(OnEnemyDied);
+    }
+
+    private void OnDestroy() {
+        _onEnemyDiedListener.Deregister(OnEnemyDied);
+    }
 
     public void StartNewWave(Wave wave) {
         if (!_enabled) return;
@@ -61,12 +76,16 @@ public class SpawnManager : MonoBehaviour {
     
     // public methods / callbacks
     public void OnEnemyDied(GameObject enemy) {
-        // TODO: somehow call this method to remove enemy
         _enemies.Remove(enemy.GetComponent<Enemy>());
+        //Debug.Log($"Removed {enemy.name} from list");
     }
 
     public void DestroyAllEnemies() {
-        foreach (var e in _enemies) 
-            e.TakeDamage(1000);
+        for (int i = 0; i < _enemies.Count; i++) {
+            _enemies[i].TakeDamage(10000f);
+            // because the enemy game object will be destroyed
+            // it will be removed from the list..
+            i--;
+        }
     }
 }

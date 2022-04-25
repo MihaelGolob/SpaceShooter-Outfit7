@@ -28,6 +28,8 @@ public class Bullet : MonoBehaviour {
     }
 
     private void Update() {
+        if (GameManager.instance.Paused) return;
+        
         _timeAlive += Time.deltaTime;
         if (_timeAlive > _timeToLive)
             Destroy(gameObject);

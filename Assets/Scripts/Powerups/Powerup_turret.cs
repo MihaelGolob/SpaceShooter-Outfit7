@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Powerup_turret : Powerup {
+    [SerializeField] private GameEvent _event;
+    
     private void OnEnable() {
         // kind of a quick fix, so the enemies don't drop 
         // more turrets than the player can equip
@@ -17,6 +19,7 @@ public class Powerup_turret : Powerup {
             Destroy(gameObject);
             return;
         } 
+        _event.Invoke();
         player.AddTurret();
     }
 }

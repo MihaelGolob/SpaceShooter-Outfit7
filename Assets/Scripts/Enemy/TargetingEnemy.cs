@@ -44,7 +44,7 @@ public class TargetingEnemy : Enemy {
         _stopPoints = new List<float>(_numStopPoints);
         // choose random points to stop and shoot
         for (var i = 0; i < _numStopPoints; i++) {
-            var rand = Random.Range(0.3f, 0.7f);
+            var rand = Random.Range(0.4f, 0.6f);
             _stopPoints.Add(rand);
         }
     }
@@ -63,7 +63,6 @@ public class TargetingEnemy : Enemy {
     }
 
     protected override void Move() {
-        // TODO: figure out a system for assigning bezier curves to enemies when instantiating them
         // update parameter
         _moveParameter += Time.deltaTime * _speed;
         if (_moveParameter >= 1f) {

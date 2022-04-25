@@ -35,6 +35,7 @@ public class Player : MonoBehaviour, IDamagable {
     [SerializeField] [Range(0f, 1f)] private float _bulletVolume = 0.1f;
     [Header("Power ups")] 
     [SerializeField] private GameObject _shield;
+    [Header("Game events")] [SerializeField] private GameEvent _onPlayerDied;
 
     // internal variables
     private Vector3 _pos;
@@ -57,7 +58,8 @@ public class Player : MonoBehaviour, IDamagable {
     private Vector3 _mousePosWorldSpace;
     // public members
     public bool BothTurretsActive => _leftTurretActivated && _rightTurretActivated;
-
+    public float Health => _health;
+    
     private void Start() {
         _pos = transform.position;
         _rb = GetComponent<Rigidbody>();
@@ -68,6 +70,7 @@ public class Player : MonoBehaviour, IDamagable {
     }
 
     private void Update() {
+        if (GameManager.instance.Paused) return;
         // update shoot timer
         _shootTimer -= Time.deltaTime;
         
@@ -111,9 +114,17 @@ public class Player : MonoBehaviour, IDamagable {
 
     private void GetInput() {
         // get mouse position
-        Vector3 mousePosPixels = Input.mousePosition;
+        Vector3 mousePosPixels = Vector3.zero;
+        mousePosPixels = Input.mousePosition;
+        if (Application.platform == RuntimePlatform.Android && Input.touchCount > 0) {
+            mousePosPixels = Input.GetTouch(0).position;
+        }
         mousePosPixels.z = transform.position.z;
         _mousePosWorldSpace = _cam.ScreenToWorldPoint(new Vector3(mousePosPixels.x, mousePosPixels.y, 10.0f));
+
+        // stay where you are and don't move to (0,0)
+        if (Application.platform == RuntimePlatform.Android && Input.touchCount == 0)
+            _mousePosWorldSpace = transform.position;
         
         // shoot input
         if (Input.GetMouseButton(0) && _shootTimer <= 0) {
@@ -176,7 +187,7 @@ public class Player : MonoBehaviour, IDamagable {
 
         // TODO: invoke event and end the game
         if (_health <= 0.001f)
-            Debug.Log("Player died");
+            _onPlayerDied.Invoke();
     }
 
     public bool Dead() {
@@ -192,7 +203,7 @@ public class Player : MonoBehaviour, IDamagable {
     }
 
     public void AddHealth(float amount) {
-        _health += amount;
+        _health = Mathf.Clamp(_health + amount, 0f, 100f);
     }
 
     public void AddTurret() {

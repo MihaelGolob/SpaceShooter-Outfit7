@@ -89,7 +89,7 @@ Transform:
   m_GameObject: {fileID: 5251457816821827557}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -2.28, y: -1.78, z: 0}
-  m_LocalScale: {x: 0.14586, y: 0.14586, z: 0.14586}
+  m_LocalScale: {x: 0.105019204, y: 0.105019204, z: 0.105019204}
   m_Children:
   - {fileID: 1660276966697094447}
   - {fileID: 925002282328678397}
@@ -225,7 +225,7 @@ MonoBehaviour:
   _tracking: 1
   _rotateSpeed: 6.7
   _angleMistake: 7
-  _speed: 0.17
+  _speed: 0.1
   _routes:
   - {fileID: 8498347466846010319, guid: 5bc473e503d459b469e6fec97d20ec9b, type: 3}
   - {fileID: 4327521661200627345, guid: 8c9b257e650c2ca43ae0a045fa50d94c, type: 3}

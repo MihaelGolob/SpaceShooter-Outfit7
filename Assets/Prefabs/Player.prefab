@@ -393,9 +393,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 100
-  _movementSpeed: 12.52
+  _movementSpeed: 10
   _rotationSpeed: 17.81
-  _cursorGap: 1.5
+  _cursorGap: 1.7
   _bulletPrefab: {fileID: 2034892880669408004, guid: ab6bb4882197e5a4d9e26cdd59e48059, type: 3}
   _bulletSpawnPoint: {fileID: 1132311300840047968}
   _bulletsParent: {fileID: 0}
@@ -416,6 +416,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3159b99affc62524191efe5e4340fd77, type: 3}
   _bulletVolume: 0.02
   _shield: {fileID: 8233846654640699610}
+  _onPlayerDied: {fileID: 11400000, guid: 1e0dfd1f3f7f09b4a94dcb9264407475, type: 2}
 --- !u!1 &6151210376237099963
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,11 +27,13 @@ public class AudioManager : MonoBehaviour {
 
     // inspector assigned
     [SerializeField] private int _maxSounds = 20;
+    [SerializeField] private AudioSource _backgroundMusic;
 
     // internal variables
     private List<AudioPoolItem> _pool = new List<AudioPoolItem>();
     private Dictionary<ulong, AudioPoolItem> _activePool = new Dictionary<ulong, AudioPoolItem>();
     private static ulong _idGiver = 0;
+    private bool _mute;
     
     // private methods
     private void Awake() {
@@ -102,8 +104,25 @@ public class AudioManager : MonoBehaviour {
             var pi = _pool[i];
             if (pi.Playing) continue;
             
-            ConfigurePoolObject(i, clip, volume);
+            ConfigurePoolObject(i, clip, _mute ? 0f : volume);
             break;
+        }
+    }
+
+    public void Mute() {
+        if (_mute) {
+            _mute = false;
+            foreach (var po in _pool) {
+                po.AudioSource.mute = false;
+                _backgroundMusic.mute = false;
+            }
+        }
+        else {
+            _mute = true;
+            foreach (var po in _pool) {
+                po.AudioSource.mute = true;
+                _backgroundMusic.mute = true;
+            }
         }
     }
 }

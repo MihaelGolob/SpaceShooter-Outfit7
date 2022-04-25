@@ -35,7 +35,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable {
     public Transform BulletParent {
         set => _bulletsParent = value;
     }
-    
+
     // Internal variables
     protected float _shootTimer;
     protected Player _player;
@@ -47,9 +47,11 @@ public abstract class Enemy : MonoBehaviour, IDamagable {
     protected virtual void Start() {
         _shootTimer = Random.Range(_minShootInterval, _maxShootInterval);
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        
     }
-    
+
     protected virtual void Update() {
+        if (GameManager.instance.Paused) return;
         if (_died) return;
         
         if (_shoots) {
@@ -78,7 +80,6 @@ public abstract class Enemy : MonoBehaviour, IDamagable {
         int r = Random.Range(0, _bulletSounds.Count);
         AudioManager.instance.PlaySound(_bulletSounds[r], _bulletVolume);
     }
-
 
     protected virtual IEnumerator Died() {
         // play sound and particle effect

@@ -1,15 +1,31 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
+using Object = UnityEngine.Object;
 
-public class GameEventListener : MonoBehaviour {
-    [SerializeField] protected GameEvent _gameEvent;
-    [SerializeField] protected UnityEvent _unityEvent;
+public delegate void RaiseEvent(GameObject gameObject);
 
-    private void Awake() => _gameEvent.Register(this);
-    private void OnDestroy() => _gameEvent.Deregister(this);
-    public virtual void RaiseEvent(GameObject go) => _unityEvent.Invoke();
+public class GameEventListener : IGameEventListener {
+    // internal
+    private event RaiseEvent _raiseMethod;
+    // public property
+    public GameEvent GameEvent { get; set; }
+
+    public void Register(RaiseEvent e) {
+        if (GameEvent == null) throw new Exception("game event is null");
+        GameEvent.Register(this);
+        _raiseMethod += e;
+    }
+
+    public void Deregister(RaiseEvent e) {
+        if (GameEvent == null) throw new Exception("game event is null");
+        GameEvent.Deregister(this);
+        _raiseMethod -= e;
+    }
+
+    public void RaiseEvent(GameObject go) {
+        if (_raiseMethod == null) throw new Exception("delegate is null");
+        _raiseMethod(go);
+    }
 }

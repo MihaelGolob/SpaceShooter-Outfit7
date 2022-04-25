@@ -129,8 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 10
-  _speed: 0.35
-  _timeToLive: 3
+  _speed: 0.12
+  _timeToLive: 7
   _sparks: {fileID: 1141969805998786562}
 --- !u!1001 &1141969806017760884
 PrefabInstance:
