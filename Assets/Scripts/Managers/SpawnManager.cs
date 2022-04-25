@@ -16,35 +16,78 @@ public class SpawnManager : MonoBehaviour {
         }
     }
     
+    // public properties
+    public int _enemyCount => _enemies.Count;
+    public int CurrentWave => _currWave;
+    
     // Inspector assigned
     [SerializeField] private bool _enabled = false;
+    [Header("Waves")]
+    [SerializeField] private List<Wave> _waves;
+    [SerializeField] private Wave _tutorialWave;
+    [Header("Prefabs")]
     [SerializeField] private List<GameObject> _enemyPrefabRefs = new List<GameObject>();
     [SerializeField] private List<GameObject> _asteroidPrefabRefs = new List<GameObject>();
     [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
     [SerializeField] private Transform _bulletParent;
     [Header("Game events")] 
     [SerializeField] private GameEvent _onEnemyDied;
+    [SerializeField] private GameEvent _onWaveCleared;
     
     // Internal variables
     private List<Enemy> _enemies = new List<Enemy>();
+    private List<Enemy> _asteroids = new List<Enemy>();
 
     private GameEventListener _onEnemyDiedListener;
 
+    private bool _waveStarted;
+    private int _enemiesToDestroy;
+
+    private int _currWave;
+    
     private void Awake() {
         _onEnemyDiedListener = new GameEventListener();
         _onEnemyDiedListener.GameEvent = _onEnemyDied;
         _onEnemyDiedListener.Register(OnEnemyDied);
     }
 
+    private void Update() {
+        if (!_waveStarted) return;
+        if (_enemies.Count != 0 || _enemiesToDestroy != 0) return;
+        
+        _currWave++;
+        _onWaveCleared.Invoke();
+        _waveStarted = false;
+    }
+
     private void OnDestroy() {
         _onEnemyDiedListener.Deregister(OnEnemyDied);
     }
 
-    public void StartNewWave(Wave wave) {
+    private void StartNewWaveInternal(Wave wave) {
         if (!_enabled) return;
         
+        _waveStarted = true;
+        _enemiesToDestroy = wave.numEnemy;
         StartCoroutine(SpawnEnemies(wave));
         StartCoroutine(SpawnAsteroids(wave));
+    }
+
+    private Wave GenerateWave() {
+        if (_currWave - 1 < _waves.Count)
+            return _waves[_currWave - 1];
+        
+        // we need to ensure that there are infinite waves
+        double intFunc = 1 / (0.015 * (_currWave + 10));
+        double enemyFunc = Mathf.Sqrt(5 * _currWave);
+        double asterFunc = Mathf.Sqrt(4 * _currWave);
+        // logic for spawning enemies
+        Wave wave = ScriptableObject.CreateInstance<Wave>();
+        wave.numAsteroids = 10 + (int) asterFunc;
+        wave.numEnemy = 5 + (int) enemyFunc;
+        wave.interval = 5 + (int) intFunc;
+
+        return wave;
     }
 
     private IEnumerator SpawnEnemies(Wave wave) {
@@ -56,7 +99,7 @@ public class SpawnManager : MonoBehaviour {
             var en = go.GetComponent<Enemy>();
             en.BulletParent = _bulletParent;
             _enemies.Add(en);
-            
+
             yield return new WaitForSeconds(wave.interval);
         }
     }
@@ -68,21 +111,39 @@ public class SpawnManager : MonoBehaviour {
             var rr = Random.Range(0, _spawnPoints.Count);
             var go = Instantiate(_asteroidPrefabRefs[r], transform);
             go.transform.position = _spawnPoints[rr].position;
-            _enemies.Add(go.GetComponent<Enemy>());
+            _asteroids.Add(go.GetComponent<Enemy>());
 
             yield return new WaitForSeconds(wave.interval);
         }
     }
     
     // public methods / callbacks
+    public void SpawnTutorialWave() {
+        StartNewWaveInternal(_tutorialWave);
+    }
+
+    public void StartNewWave() {
+        Wave wave = GenerateWave();
+        StartNewWaveInternal(wave);
+    }
+    
     public void OnEnemyDied(GameObject enemy) {
-        _enemies.Remove(enemy.GetComponent<Enemy>());
+        // remove from enemies if there, otherwise in _asteroids
+        if (_enemies.Remove(enemy.GetComponent<Enemy>()))
+            _enemiesToDestroy--;
+        _asteroids.Remove(enemy.GetComponent<Enemy>());
         //Debug.Log($"Removed {enemy.name} from list");
     }
 
     public void DestroyAllEnemies() {
         for (int i = 0; i < _enemies.Count; i++) {
             _enemies[i].TakeDamage(10000f);
+            // because the enemy game object will be destroyed
+            // it will be removed from the list..
+            i--;
+        }
+        for (int i = 0; i < _asteroids.Count; i++) {
+            _asteroids[i].TakeDamage(10000f);
             // because the enemy game object will be destroyed
             // it will be removed from the list..
             i--;

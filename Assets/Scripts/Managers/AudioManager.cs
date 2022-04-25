@@ -25,6 +25,8 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
+    public bool IsMuted => _mute;
+
     // inspector assigned
     [SerializeField] private int _maxSounds = 20;
     [SerializeField] private AudioSource _backgroundMusic;

@@ -3,12 +3,6 @@
   <component name="Statistic">
     <option name="excludedDirectories">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Game Events" />
-        <option value="$PROJECT_DIR$/Assets/Materials" />
-        <option value="$PROJECT_DIR$/Assets/PolygonSciFiSpace" />
-        <option value="$PROJECT_DIR$/Assets/Prefabs" />
-        <option value="$PROJECT_DIR$/Assets/Scenes" />
-        <option value="$PROJECT_DIR$/Assets/TextMesh Pro" />
         <option value="$PROJECT_DIR$/.git" />
         <option value="$PROJECT_DIR$/.idea" />
         <option value="$PROJECT_DIR$/Library" />
@@ -18,6 +12,15 @@
         <option value="$PROJECT_DIR$/ProjectSettings" />
         <option value="$PROJECT_DIR$/Temp" />
         <option value="$PROJECT_DIR$/UserSettings" />
+        <option value="$PROJECT_DIR$/Assets/Audio" />
+        <option value="$PROJECT_DIR$/Assets/Game Events" />
+        <option value="$PROJECT_DIR$/Assets/Materials" />
+        <option value="$PROJECT_DIR$/Assets/PolygonSciFiSpace" />
+        <option value="$PROJECT_DIR$/Assets/Prefabs" />
+        <option value="$PROJECT_DIR$/Assets/Scenes" />
+        <option value="$PROJECT_DIR$/Assets/Shaders" />
+        <option value="$PROJECT_DIR$/Assets/Shift - Sci-Fi UI" />
+        <option value="$PROJECT_DIR$/Assets/TextMesh Pro" />
       </list>
     </option>
   </component>
