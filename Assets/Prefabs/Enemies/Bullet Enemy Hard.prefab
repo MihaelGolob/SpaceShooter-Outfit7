@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7539823492643495701}
   - component: {fileID: 6143121148147463983}
   m_Layer: 0
-  m_Name: Bullet Enemy
+  m_Name: Bullet Enemy Hard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2034892880669408004}
   m_LocalRotation: {x: 0.70710677, y: -0.0000003371745, z: -0.00000033717507, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.57543474, y: 1.6589785, z: 0.57543474}
+  m_LocalScale: {x: 0.7825913, y: 2.2562108, z: 0.7825913}
   m_Children:
   - {fileID: 1141969806018116746}
   m_Father: {fileID: 0}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6b9a1b0915e33574da75a3e4cfaca845, type: 2}
+  - {fileID: 2100000, guid: 78e3220774c6143448905833b465145f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8ac5157ebfcfe4ba77bb613c33567d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
-  _speed: 0.08
+  _damage: 25
+  _speed: 0.04
   _timeToLive: 7
   _sparks: {fileID: 1141969805998786562}
 --- !u!1001 &1141969806017760884

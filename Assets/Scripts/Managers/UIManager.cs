@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour {
 
     [Header("info Text")] 
     [SerializeField] private TextMeshProUGUI _waveText;
+    [SerializeField] private TextMeshProUGUI _enemiesLeftText;
     [SerializeField] private TextMeshProUGUI _powerUpText;
     [SerializeField] private TextMeshProUGUI _tutorialScript;
     [SerializeField] private TextMeshProUGUI _waveClearedText;
@@ -28,6 +29,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private GameEvent _startTutorial;
     [SerializeField] private GameEvent _endTutorial;
     [SerializeField] private GameEvent _onWaveCleared;
+    [SerializeField] private GameEvent _onPlayerDied;
     
     // internal
     private Player _player;
@@ -35,6 +37,7 @@ public class UIManager : MonoBehaviour {
     private GameEventListener _startTutorialListener;
     private GameEventListener _endTutorialListener;
     private GameEventListener _onWaveClearedListener;
+    private GameEventListener _onPlayerDiedListener;
 
     private void Awake() {
         // disable unnecessary ui
@@ -43,23 +46,22 @@ public class UIManager : MonoBehaviour {
         _waveClearedText.text = "";
 
         // register to events
-        _startTutorialListener = new GameEventListener();
-        _startTutorialListener.GameEvent = _startTutorial;
-        _endTutorialListener = new GameEventListener();
-        _endTutorialListener.GameEvent = _endTutorial;
-        _onWaveClearedListener = new GameEventListener();
-        _onWaveClearedListener.GameEvent = _onWaveCleared;
-        
+        _startTutorialListener = new GameEventListener {GameEvent = _startTutorial};
+        _endTutorialListener = new GameEventListener {GameEvent = _endTutorial};
+        _onWaveClearedListener = new GameEventListener {GameEvent = _onWaveCleared};
+        _onPlayerDiedListener = new GameEventListener() {GameEvent = _onPlayerDied};
+
         _startTutorialListener.Register(ShowTutorialScript);
         _endTutorialListener.Register(HideTutorialScript);
         _onWaveClearedListener.Register(ShowWaveClearedText);
+        _onPlayerDiedListener.Register(ShowEndGameText);
     }
-
-
+    
     private void OnDestroy() {
         _startTutorialListener.Deregister(ShowTutorialScript);
         _endTutorialListener.Deregister(HideTutorialScript);
         _onWaveClearedListener.Deregister(ShowWaveClearedText);
+        _onPlayerDiedListener.Deregister(ShowEndGameText);
     }
     
     // game event callbacks
@@ -70,8 +72,12 @@ public class UIManager : MonoBehaviour {
     private void HideTutorialScript(GameObject go) {
         _tutorialScript.gameObject.SetActive(false);
     }
-    private void ShowWaveClearedText(GameObject gameobject) {
+    private void ShowWaveClearedText(GameObject go) {
         StartCoroutine(ShowWaveClearedTextCou());
+    }
+    
+    private void ShowEndGameText(GameObject go) {
+        _waveClearedText.text = "Your ship has collapsed!";
     }
 
     private IEnumerator ShowWaveClearedTextCou() {
@@ -89,6 +95,13 @@ public class UIManager : MonoBehaviour {
         UpdateHealthSlider();
         _waveText.text = $"wave {SpawnManager.instance.CurrentWave}";
         _tutorialScript.text = _tutorialScriptText.value;
+
+        var numEnemies = SpawnManager.instance.EnemiesLeft;
+        Color c = new Color();
+        if (numEnemies > 0) ColorUtility.TryParseHtmlString("#D63131", out c);
+        else c = Color.white;
+        _enemiesLeftText.color = c;
+        _enemiesLeftText.text = numEnemies.ToString();
     }
 
     private void UpdateHealthSlider() {

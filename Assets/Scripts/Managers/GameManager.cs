@@ -84,10 +84,11 @@ public class GameManager : MonoBehaviour {
         _tutorialScript.value = "Also watch out for asteroids.";
         yield return new WaitForSeconds(20f);
         _endTutorial.Invoke();
-        _player.AddHealth(100);
     }
 
     private void WaveCleared(GameObject go) {
+        if (!_tutorialCompleted)
+            _player.AddHealth(100);
         _tutorialCompleted = true;
         StartCoroutine(StartNewWave());
     }

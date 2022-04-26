@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Enemy : MonoBehaviour, IDamagable {
     // Serializable
@@ -36,10 +37,14 @@ public abstract class Enemy : MonoBehaviour, IDamagable {
         set => _bulletsParent = value;
     }
 
+    public float Health => _health;
+    public float MaxHealth => _maxHealth;
+
     // Internal variables
     protected float _shootTimer;
     protected Player _player;
     protected bool _died;
+    protected float _maxHealth;
 
     // abstract
     protected abstract void Move();
@@ -47,7 +52,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable {
     protected virtual void Start() {
         _shootTimer = Random.Range(_minShootInterval, _maxShootInterval);
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        
+        _maxHealth = _health;
     }
 
     protected virtual void Update() {
@@ -98,7 +103,9 @@ public abstract class Enemy : MonoBehaviour, IDamagable {
         // drop power up
         DropPowerup();
         yield return new WaitForSeconds(5f);
-        Destroy(gameObject);
+
+        var parent = transform.parent;
+        Destroy(parent.gameObject);
     }
 
     private IEnumerator ExplosionDamage() {

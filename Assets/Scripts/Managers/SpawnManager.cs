@@ -17,7 +17,7 @@ public class SpawnManager : MonoBehaviour {
     }
     
     // public properties
-    public int _enemyCount => _enemies.Count;
+    public int EnemiesLeft => _enemiesToDestroy;
     public int CurrentWave => _currWave;
     
     // Inspector assigned
@@ -46,8 +46,7 @@ public class SpawnManager : MonoBehaviour {
     private int _currWave;
     
     private void Awake() {
-        _onEnemyDiedListener = new GameEventListener();
-        _onEnemyDiedListener.GameEvent = _onEnemyDied;
+        _onEnemyDiedListener = new GameEventListener {GameEvent = _onEnemyDied};
         _onEnemyDiedListener.Register(OnEnemyDied);
     }
 
@@ -96,7 +95,7 @@ public class SpawnManager : MonoBehaviour {
             var r = Random.Range(0, _enemyPrefabRefs.Count);
             var go = Instantiate(_enemyPrefabRefs[r], transform);
             go.transform.position = _spawnPoints[0].position;
-            var en = go.GetComponent<Enemy>();
+            var en = go.GetComponentInChildren<Enemy>();
             en.BulletParent = _bulletParent;
             _enemies.Add(en);
 
@@ -111,7 +110,7 @@ public class SpawnManager : MonoBehaviour {
             var rr = Random.Range(0, _spawnPoints.Count);
             var go = Instantiate(_asteroidPrefabRefs[r], transform);
             go.transform.position = _spawnPoints[rr].position;
-            _asteroids.Add(go.GetComponent<Enemy>());
+            _asteroids.Add(go.GetComponentInChildren<Enemy>());
 
             yield return new WaitForSeconds(wave.interval);
         }

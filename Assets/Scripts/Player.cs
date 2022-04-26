@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public interface IDamagable {
@@ -30,6 +31,8 @@ public class Player : MonoBehaviour, IDamagable {
     [SerializeField] private Transform _leftTurretPoint;
     [SerializeField] private Transform _rightTurretPoint;
     [Header("Effects")] 
+    [SerializeField] private ParticleSystem _explosion;
+    [SerializeField] private ParticleSystem _exhaust;
     [SerializeField] private List<ParticleSystem> _lowHealthSmoke = new List<ParticleSystem>();
     [SerializeField] private List<AudioClip> _bulletFireSounds = new List<AudioClip>();
     [SerializeField] [Range(0f, 1f)] private float _bulletVolume = 0.1f;
@@ -80,36 +83,14 @@ public class Player : MonoBehaviour, IDamagable {
     }
 
     private void UpdateSmoke() {
-        _numOfSmokes = 0;
-        if (_health <= 60) _numOfSmokes++;
-        if (_health <= 40) _numOfSmokes++;
-        if (_health <= 20) _numOfSmokes++;
+        if (_health <= 60) _lowHealthSmoke[0].Play();
+        else _lowHealthSmoke[0].Stop();
 
-        if (_numOfSmokes == _activeSmokes)
-            return;
+        if (_health <= 40) _lowHealthSmoke[1].Play();
+        else _lowHealthSmoke[1].Stop();
 
-        if (_activeSmokes > _numOfSmokes) {
-            for (var i = 0; i < _activeSmokes - _numOfSmokes; i++) {
-                var r = Random.Range(0, _lowHealthSmoke.Count);
-                if (!_lowHealthSmoke[r].isPlaying) {
-                    i--;
-                    continue;
-                }
-                _lowHealthSmoke[r].Stop();
-                _activeSmokes--;
-            }
-            return;
-        }
-        
-        for (var i = 0; i < _numOfSmokes - _activeSmokes; i++) {
-            var r = Random.Range(0, _lowHealthSmoke.Count);
-            if (_lowHealthSmoke[r].isPlaying) {
-                i--;
-                continue;
-            }
-            _lowHealthSmoke[r].Play();
-            _activeSmokes++;
-        }
+        if (_health <= 20) _lowHealthSmoke[2].Play();
+        else _lowHealthSmoke[2].Stop();
     }
 
     private void GetInput() {
@@ -156,7 +137,7 @@ public class Player : MonoBehaviour, IDamagable {
         // get direction to mouse pos
         var direction = (_mousePosWorldSpace - transform.position).normalized;
         // move towards the mouse
-        transform.position = Vector3.Lerp(transform.position, _mousePosWorldSpace - _cursorGap * direction, Time.deltaTime * _movementSpeed);
+        transform.position = Vector3.Lerp(transform.position, _mousePosWorldSpace - _cursorGap*direction, Time.deltaTime * _movementSpeed);
         // rotate towards the mouse
         // with euler angles:
         direction.z = 0f;
@@ -179,6 +160,22 @@ public class Player : MonoBehaviour, IDamagable {
         _coolDownPeriod = oldCoolDown;
     }
 
+    private IEnumerator Death() {
+        _onPlayerDied.Invoke();
+        _explosion.Play();
+        // turn of meshes
+        GetComponent<MeshRenderer>().enabled = false;
+        _leftTurret.SetActive(false);
+        _rightTurret.SetActive(false);
+        // turn of particle effects
+        foreach (var e in _lowHealthSmoke)
+            e.Stop();
+        _exhaust.Stop();
+        yield return new WaitForSeconds(5);
+        // return to main menu
+        SceneManager.LoadScene("MainMenu");
+    }
+
     // public methods
     public void TakeDamage(float amount) {
         if (_shieldActivated) return;
@@ -187,7 +184,7 @@ public class Player : MonoBehaviour, IDamagable {
 
         // TODO: invoke event and end the game
         if (_health <= 0.001f)
-            _onPlayerDied.Invoke();
+            StartCoroutine(Death());
     }
 
     public bool Dead() {
