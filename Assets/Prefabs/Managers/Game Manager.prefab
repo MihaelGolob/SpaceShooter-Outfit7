@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tutorialScript: {fileID: 11400000, guid: 3d7b2c417a5dffb44bf16237e49ac8b3, type: 2}
+  _tutorial: 1
   _waveCleared: {fileID: 11400000, guid: bebdc43f45e15244f82dd49d7720e679, type: 2}
   _startTutorial: {fileID: 11400000, guid: 52fdf2c36a7d49d45b5b71f121dd8db1, type: 2}
   _endTutorial: {fileID: 11400000, guid: de2f6ea4dac3c5b44a2664337ffc2ed8, type: 2}

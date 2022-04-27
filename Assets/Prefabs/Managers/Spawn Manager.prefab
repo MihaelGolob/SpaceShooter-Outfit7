@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7043907983651505636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7043907983651505658}
+  - component: {fileID: 7043907983651505637}
+  m_Layer: 0
+  m_Name: Spawn Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7043907983651505658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7043907983651505636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7043907983651505637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7043907983651505636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ca5c21c8796f65489fa388144c6788c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enabled: 1
+  _waves:
+  - {fileID: 11400000, guid: cf8a2c70ede57904eafc60a812cc5220, type: 2}
+  - {fileID: 11400000, guid: 496c9eb2c0852b74e9a37279b3636b77, type: 2}
+  - {fileID: 11400000, guid: 0eb39db0817f425468cd37e0c50ea321, type: 2}
+  - {fileID: 11400000, guid: 101dbd09f11447147bed7bf9d06943b1, type: 2}
+  - {fileID: 11400000, guid: 8626af9e11a6d0741890a444a8007e24, type: 2}
+  - {fileID: 11400000, guid: 47dbb3d9445ae0e40af8656d4f3abb23, type: 2}
+  - {fileID: 11400000, guid: ebd3731375adec24c9c9b27abbbdad52, type: 2}
+  - {fileID: 11400000, guid: 4d6de47490ba3ec4b96c153d722408f3, type: 2}
+  - {fileID: 11400000, guid: 16d509e299d590549acceb907531dcca, type: 2}
+  - {fileID: 11400000, guid: d2d3ba4ed9139154889c2f0de9325982, type: 2}
+  _tutorialWave: {fileID: 11400000, guid: 0267772cd0877c44b9372ea4dc455afc, type: 2}
+  _enemyPrefabRefs:
+  - {fileID: 5096605376370153630, guid: 4d008147b831711419559006c8b52645, type: 3}
+  - {fileID: 4540941475072573416, guid: 54c16d6a06f695e42af524342bd00f30, type: 3}
+  - {fileID: 3413138400032926852, guid: 69e82cb279f9c7f46b6cc4a301edc761, type: 3}
+  _asteroidPrefabRef: {fileID: 435175361073026149, guid: 292d6795da53f594ca7f0f4500a48a74, type: 3}
+  _spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _bulletParent: {fileID: 0}
+  _onEnemyDied: {fileID: 11400000, guid: f79e938d83c88744692d98205dbe9a75, type: 2}
+  _onWaveCleared: {fileID: 11400000, guid: bebdc43f45e15244f82dd49d7720e679, type: 2}

@@ -23990,7 +23990,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4540941475072573416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.757, y: -0.937, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1376182409290174501}
@@ -24151,7 +24151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5773465732111136621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 9.6}
+  m_LocalPosition: {x: 0, y: 0, z: 15.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8642925972118965912}
@@ -24337,7 +24337,7 @@ GameObject:
   - component: {fileID: 7456810647103280417}
   - component: {fileID: 7079372375620475764}
   m_Layer: 0
-  m_Name: Enemy2
+  m_Name: Enemy2 Slow
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24454,15 +24454,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fa68cbea9f28745b0714e938d39a04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 100
-  _size: 1
+  _health: 150
+  _bumpDamage: 5
   _shoots: 1
   _timeToShoot: 7
   _bulletPrefab: {fileID: 2034892880669408004, guid: fc42c152f06eb1e4aa50a5bd583b3826, type: 3}
   _bulletSpawnPoint: {fileID: 2886480998329606716}
   _bulletsParent: {fileID: 0}
-  _minShootInterval: 0.3
-  _maxShootInterval: 2.52
+  _minShootInterval: 0.52
+  _maxShootInterval: 2.93
   _explosionCollider: {fileID: 2970872907641420790}
   _bulletSounds:
   - {fileID: 8300000, guid: 7fa97a57e83e686458fc95af0162a86e, type: 3}

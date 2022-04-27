@@ -80,18 +80,21 @@ public class Player : MonoBehaviour, IDamagable {
         
         GetInput();
         Move();
+    }
+
+    private void FixedUpdate() {
         UpdateSmoke();
     }
 
     private void UpdateSmoke() {
-        if (_health <= 60) _lowHealthSmoke[0].Play();
-        else _lowHealthSmoke[0].Stop();
+        if (_health <= 60 && !_lowHealthSmoke[0].isPlaying) _lowHealthSmoke[0].Play();
+        else if (_health > 60) _lowHealthSmoke[0].Stop();
 
-        if (_health <= 40) _lowHealthSmoke[1].Play();
-        else _lowHealthSmoke[1].Stop();
+        if (_health <= 40 && !_lowHealthSmoke[1].isPlaying) _lowHealthSmoke[1].Play();
+        else if (_health > 40) _lowHealthSmoke[1].Stop();
 
-        if (_health <= 20) _lowHealthSmoke[2].Play();
-        else _lowHealthSmoke[2].Stop();
+        if (_health <= 20 && !_lowHealthSmoke[2].isPlaying) _lowHealthSmoke[2].Play();
+        else if (_health > 20) _lowHealthSmoke[2].Stop();
     }
 
     private void GetInput() {

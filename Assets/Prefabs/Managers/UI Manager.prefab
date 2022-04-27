@@ -1,0 +1,206 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6058280513333782936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6058280513333782937}
+  - component: {fileID: 6058280513333782942}
+  - component: {fileID: 6058280513333782931}
+  - component: {fileID: 6058280513333782930}
+  - component: {fileID: 6058280513333782941}
+  - component: {fileID: 6058280513333782940}
+  - component: {fileID: 6058280513333782943}
+  m_Layer: 0
+  m_Name: UI Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6058280513333782937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058280513333782936}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6058280513333782942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058280513333782936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a873d05cb36f040998967928dc808a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _notificationDuration: 5
+  _tutorialScriptText: {fileID: 11400000, guid: 3d7b2c417a5dffb44bf16237e49ac8b3, type: 2}
+  _muteButton: {fileID: 0}
+  _soundSprite: {fileID: 21300000, guid: dc3c35513efc7e6408c1cd524b09a39f, type: 3}
+  _muteSprite: {fileID: 21300000, guid: 71a7c5f77c8b1e04bac8187a8ce272fd, type: 3}
+  _healthSlider: {fileID: 0}
+  _healthText: {fileID: 0}
+  _waveText: {fileID: 0}
+  _enemiesLeftText: {fileID: 0}
+  _powerUpText: {fileID: 0}
+  _tutorialScript: {fileID: 0}
+  _waveClearedText: {fileID: 0}
+  _startTutorial: {fileID: 11400000, guid: 52fdf2c36a7d49d45b5b71f121dd8db1, type: 2}
+  _endTutorial: {fileID: 11400000, guid: de2f6ea4dac3c5b44a2664337ffc2ed8, type: 2}
+  _onWaveCleared: {fileID: 11400000, guid: bebdc43f45e15244f82dd49d7720e679, type: 2}
+  _onPlayerDied: {fileID: 11400000, guid: 1e0dfd1f3f7f09b4a94dcb9264407475, type: 2}
+--- !u!114 &6058280513333782931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058280513333782936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31a358fbc8b1d749ba64739272cc562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 78ed5dba4c18f504895e09476093771f, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6058280513333782942}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: PowerUpPickedUp
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: health
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6058280513333782930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058280513333782936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31a358fbc8b1d749ba64739272cc562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 537b3e7512ef13c439cdbb85c46e76e5, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6058280513333782942}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: PowerUpPickedUp
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: nuke
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6058280513333782941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058280513333782936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31a358fbc8b1d749ba64739272cc562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: c86f7a9800084c9419b163c7945189e4, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6058280513333782942}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: PowerUpPickedUp
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: shield
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6058280513333782940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058280513333782936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31a358fbc8b1d749ba64739272cc562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 44773f796ae78444f8cb12f4957d61c1, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6058280513333782942}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: PowerUpPickedUp
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: turret
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6058280513333782943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058280513333782936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a31a358fbc8b1d749ba64739272cc562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 0300da16566c39c40b937f2bc8c3fcaf, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6058280513333782942}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: PowerUpPickedUp
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: upgrade
+          m_BoolArgument: 0
+        m_CallState: 2

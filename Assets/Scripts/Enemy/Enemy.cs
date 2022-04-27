@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public abstract class Enemy : MonoBehaviour, IDamagable {
     // Serializable
-    [SerializeField] [Range(0f, 100f)] protected float _health = 100f;
+    [SerializeField] [Range(0f, 200f)] protected float _health = 100f;
     [SerializeField] protected float _bumpDamage = 5f;
     [Header("Shooting")]
     [SerializeField] protected bool _shoots = false;

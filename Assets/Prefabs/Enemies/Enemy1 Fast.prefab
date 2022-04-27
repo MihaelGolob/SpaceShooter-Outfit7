@@ -52,7 +52,7 @@ GameObject:
   - component: {fileID: 2217323968469889623}
   - component: {fileID: 1981748808773024770}
   m_Layer: 0
-  m_Name: Enemy1
+  m_Name: Enemy1 Fast
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,14 +171,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 70
-  _size: 1
+  _bumpDamage: 5
   _shoots: 1
   _timeToShoot: 5
   _bulletPrefab: {fileID: 2034892880669408004, guid: e6b626a77501b1448b84da76e59927e4, type: 3}
   _bulletSpawnPoint: {fileID: 5886409827343893834}
   _bulletsParent: {fileID: 0}
   _minShootInterval: 0.3
-  _maxShootInterval: 2.52
+  _maxShootInterval: 1.7
   _explosionCollider: {fileID: 5801978321669856384}
   _bulletSounds:
   - {fileID: 8300000, guid: 7fa97a57e83e686458fc95af0162a86e, type: 3}

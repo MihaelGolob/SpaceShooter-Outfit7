@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +16,7 @@ public class GameManager : MonoBehaviour {
     
     // Inspector assigned
     [SerializeField] private SharedVariable_String _tutorialScript;
+    [SerializeField] private bool _tutorial;
     [Header("Game events")] 
     [SerializeField] private GameEvent _waveCleared;
     [SerializeField] private GameEvent _startTutorial;
@@ -37,13 +37,18 @@ public class GameManager : MonoBehaviour {
     private void Awake() {
         // dont destroy this game object
         DontDestroyOnLoad(gameObject);
+        if (instance != this)
+            Destroy(gameObject);
         // subscribe to events
         SceneManager.sceneLoaded += OnSceneLoaded;
         _waveClearedListener = new GameEventListener();
         _waveClearedListener.GameEvent = _waveCleared;
         _waveClearedListener.Register(WaveCleared);
+
+        if (!_tutorial)
+            _tutorialCompleted = true;
     }
-    
+
     private void OnDestroy() {
         // unsubscribe from all events
         SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -65,6 +70,8 @@ public class GameManager : MonoBehaviour {
 
     private void Start() {
         _player = FindObjectOfType<Player>();
+        
+        //_tutorial = PlayerPrefs.GetInt("TutorialCompleted", 0) > 0;
     }
 
     private IEnumerator StartNewWave() {
@@ -90,9 +97,13 @@ public class GameManager : MonoBehaviour {
     }
 
     private void WaveCleared(GameObject go) {
-        if (!_tutorialCompleted)
+        if (!_tutorialCompleted) {
             _player.AddHealth(100);
-        _tutorialCompleted = true;
+            _tutorialCompleted = true;
+            // save for further sessions
+            //PlayerPrefs.SetInt("TutorialCompleted", 1);
+            //PlayerPrefs.Save();
+        }
         StartCoroutine(StartNewWave());
     }
 
