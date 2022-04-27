@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
     private void Start() {
         _player = FindObjectOfType<Player>();
         
-        //_tutorial = PlayerPrefs.GetInt("TutorialCompleted", 0) > 0;
+        _tutorial = PlayerPrefs.GetInt("TutorialCompleted", 0) > 0;
     }
 
     private IEnumerator StartNewWave() {
@@ -101,8 +101,8 @@ public class GameManager : MonoBehaviour {
             _player.AddHealth(100);
             _tutorialCompleted = true;
             // save for further sessions
-            //PlayerPrefs.SetInt("TutorialCompleted", 1);
-            //PlayerPrefs.Save();
+            PlayerPrefs.SetInt("TutorialCompleted", 1);
+            PlayerPrefs.Save();
         }
         StartCoroutine(StartNewWave());
     }
@@ -119,6 +119,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public void ToMainMenu() {
+        _paused = false;
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("MainMenu");
     }
 }
