@@ -1,9 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -112,7 +108,7 @@ public class Player : MonoBehaviour, IDamagable {
             _mousePosWorldSpace = transform.position;
         
         // shoot input
-        if (Input.GetMouseButton(0) && _shootTimer <= 0) {
+        if (_shootTimer <= 0) {
             Shoot(_bulletSpawnPoint);
             if (_leftTurretActivated) Shoot(_leftTurretPoint);
             if (_rightTurretActivated) Shoot(_rightTurretPoint);

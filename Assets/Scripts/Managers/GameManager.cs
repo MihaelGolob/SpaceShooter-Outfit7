@@ -70,8 +70,6 @@ public class GameManager : MonoBehaviour {
 
     private void Start() {
         _player = FindObjectOfType<Player>();
-        
-        _tutorial = PlayerPrefs.GetInt("TutorialCompleted", 0) > 0;
     }
 
     private IEnumerator StartNewWave() {
@@ -100,9 +98,6 @@ public class GameManager : MonoBehaviour {
         if (!_tutorialCompleted) {
             _player.AddHealth(100);
             _tutorialCompleted = true;
-            // save for further sessions
-            PlayerPrefs.SetInt("TutorialCompleted", 1);
-            PlayerPrefs.Save();
         }
         StartCoroutine(StartNewWave());
     }
