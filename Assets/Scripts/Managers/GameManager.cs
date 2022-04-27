@@ -52,12 +52,15 @@ public class GameManager : MonoBehaviour {
     
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadMode) {
         if (!scene.name.Equals("Game")) return;
+        if (_player == null)
+            _player = FindObjectOfType<Player>();
 
         if (!_tutorialCompleted) {
             StartCoroutine(StartTutorial());
         }
-        else
-            StartNewWave(); 
+        else {
+            StartCoroutine(StartNewWave()); 
+        }
     }
 
     private void Start() {
@@ -65,7 +68,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private IEnumerator StartNewWave() {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         SpawnManager.instance.StartNewWave();
     }
 
@@ -74,7 +77,7 @@ public class GameManager : MonoBehaviour {
         _startTutorial.Invoke();
         yield return new WaitForSeconds(5f);
         
-        _tutorialScript.value = "The ships automatically shoots while you hold down your finger.";
+        _tutorialScript.value = "The ship automatically shoots while you hold down your finger.";
         yield return new WaitForSeconds(5f);
         
         _tutorialScript.value = "Your objective is to destroy all enemy ships.";

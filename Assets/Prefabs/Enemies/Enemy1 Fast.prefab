@@ -193,7 +193,7 @@ MonoBehaviour:
   _particleSystemsToStop:
   - {fileID: 5233260332954263196}
   - {fileID: 8022998330117209830}
-  _dropChance: 0.309
+  _dropChance: 0.2
   _powerupsToDrop:
   - {fileID: 3305931981787317369, guid: 44e1b80764ac9c440add9a62158c714d, type: 3}
   - {fileID: 5562372592608952538, guid: 36a02a31e2f22704b8030cab85691322, type: 3}

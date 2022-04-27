@@ -27,7 +27,7 @@ public class SpawnManager : MonoBehaviour {
     [SerializeField] private Wave _tutorialWave;
     [Header("Prefabs")]
     [SerializeField] private List<GameObject> _enemyPrefabRefs = new List<GameObject>();
-    [SerializeField] private List<GameObject> _asteroidPrefabRefs = new List<GameObject>();
+    [SerializeField] private GameObject _asteroidPrefabRef;
     [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
     [SerializeField] private Transform _bulletParent;
     [Header("Game events")] 
@@ -106,9 +106,8 @@ public class SpawnManager : MonoBehaviour {
     private IEnumerator SpawnAsteroids(Wave wave) {
         for (var i = 0; i < wave.numAsteroids; i++) {
             // spawn asteroid
-            var r = Random.Range(0, _enemyPrefabRefs.Count);
             var rr = Random.Range(0, _spawnPoints.Count);
-            var go = Instantiate(_asteroidPrefabRefs[r], transform);
+            var go = Instantiate(_asteroidPrefabRef, transform);
             go.transform.position = _spawnPoints[rr].position;
             _asteroids.Add(go.GetComponentInChildren<Enemy>());
 
@@ -122,6 +121,7 @@ public class SpawnManager : MonoBehaviour {
     }
 
     public void StartNewWave() {
+        if (_currWave == 0) _currWave = 1;
         Wave wave = GenerateWave();
         StartNewWaveInternal(wave);
     }

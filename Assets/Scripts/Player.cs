@@ -74,6 +74,7 @@ public class Player : MonoBehaviour, IDamagable {
 
     private void Update() {
         if (GameManager.instance.Paused) return;
+        if (_health <= 0) return;
         // update shoot timer
         _shootTimer -= Time.deltaTime;
         

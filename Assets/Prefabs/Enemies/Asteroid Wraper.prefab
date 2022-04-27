@@ -14976,7 +14976,7 @@ MonoBehaviour:
   _explosionVolume: 0.05
   _explosionParticleSystem: {fileID: 5294558834188613817}
   _particleSystemsToStop: []
-  _dropChance: 0.3
+  _dropChance: 0.1
   _powerupsToDrop:
   - {fileID: 5562372592608952538, guid: 36a02a31e2f22704b8030cab85691322, type: 3}
   - {fileID: 3305931981787317369, guid: 44e1b80764ac9c440add9a62158c714d, type: 3}

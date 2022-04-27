@@ -24476,13 +24476,10 @@ MonoBehaviour:
   _explosionParticleSystem: {fileID: 3493446249352592141}
   _particleSystemsToStop:
   - {fileID: 3539313824862304746}
-  - {fileID: 0}
-  _dropChance: 0.309
+  _dropChance: 0.1
   _powerupsToDrop:
-  - {fileID: 3305931981787317369, guid: 44e1b80764ac9c440add9a62158c714d, type: 3}
   - {fileID: 3007817220136091082, guid: a6c8ee3d19df8404488b3afef7042119, type: 3}
   - {fileID: 7689689854818086593, guid: 1ece85ff01ce2cd42a854bce9c9613cb, type: 3}
-  - {fileID: 5562372592608952538, guid: 36a02a31e2f22704b8030cab85691322, type: 3}
   - {fileID: 7460757011133234994, guid: 3779432f5d50aa1449b6c4b58b49a1df, type: 3}
   _onDiedEvent: {fileID: 11400000, guid: f79e938d83c88744692d98205dbe9a75, type: 2}
   _tracking: 1

@@ -1,13 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public abstract class Enemy : MonoBehaviour, IDamagable {
     // Serializable
     [SerializeField] [Range(0f, 100f)] protected float _health = 100f;
-    [SerializeField] [Range(1, 2)] protected int _size = 1;
+    [SerializeField] protected float _bumpDamage = 5f;
     [Header("Shooting")]
     [SerializeField] protected bool _shoots = false;
     [SerializeField] [Range(1f, 10f)] protected float _timeToShoot = 5f;
@@ -45,7 +47,10 @@ public abstract class Enemy : MonoBehaviour, IDamagable {
     protected Player _player;
     protected bool _died;
     protected float _maxHealth;
-
+    
+    protected float _lastBumpDamageTime;
+    protected float _bumpDamageCoolDown;
+    
     // abstract
     protected abstract void Move();
     
@@ -53,12 +58,15 @@ public abstract class Enemy : MonoBehaviour, IDamagable {
         _shootTimer = Random.Range(_minShootInterval, _maxShootInterval);
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         _maxHealth = _health;
+        _bumpDamageCoolDown = 5f;
+        _lastBumpDamageTime = 0;
     }
 
     protected virtual void Update() {
         if (GameManager.instance.Paused) return;
         if (_died) return;
-        
+
+        _lastBumpDamageTime--;
         if (_shoots) {
             // update shoot interval
             Shoot();
@@ -66,7 +74,18 @@ public abstract class Enemy : MonoBehaviour, IDamagable {
         Move();
     }
 
+    protected void OnTriggerEnter(Collider other) {
+        if (!other.CompareTag("Player")) return;
+        if (_lastBumpDamageTime > 0) return;
+        if (_died) return;
+        
+        _lastBumpDamageTime = _bumpDamageCoolDown;
+        other.GetComponent<IDamagable>().TakeDamage(_bumpDamage);
+    }
+
     protected void Shoot() {
+        if (Dead()) return;
+        
         _shootTimer -= Time.deltaTime;
         if (_shootTimer > 0) return;
         

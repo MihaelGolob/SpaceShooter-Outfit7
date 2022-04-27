@@ -116,7 +116,7 @@ MonoBehaviour:
   _rotationSpeed: 0.15
   _activateSound: {fileID: 8300000, guid: 6c703fff895322946834b3592daaee9d, type: 3}
   _activateSoundVolume: 0.4
-  _frequencyMultiplier: 2
+  _frequencyMultiplier: 1.5
   _duration: 5
   _event: {fileID: 11400000, guid: 0300da16566c39c40b937f2bc8c3fcaf, type: 2}
 --- !u!1 &4756239035363423156

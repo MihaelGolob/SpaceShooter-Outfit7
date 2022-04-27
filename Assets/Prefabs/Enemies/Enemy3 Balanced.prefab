@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 321844538994557636}
-  m_LocalRotation: {x: 1, y: -0, z: -0, w: -0.00000032782552}
-  m_LocalPosition: {x: -0.89, y: 0.41, z: -6.83}
+  m_LocalRotation: {x: 0.98984665, y: -0, z: -0, w: 0.14213972}
+  m_LocalPosition: {x: -2.140001, y: 0.40996948, z: -21.42026}
   m_LocalScale: {x: 0.057299435, y: 0.057299435, z: 0.057299435}
   m_Children: []
   m_Father: {fileID: 7469389434637180404}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 163.657, y: 0, z: 0}
 --- !u!198 &481967234972289788
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -23828,13 +23828,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2558122746776789694}
-  m_LocalRotation: {x: 1, y: -0, z: -0, w: -0.00000032782552}
-  m_LocalPosition: {x: 0.82, y: 0.41, z: -6.83}
+  m_LocalRotation: {x: 0.9794347, y: -0, z: -0, w: 0.20176113}
+  m_LocalPosition: {x: 2.3300018, y: 0.40989915, z: -21.750555}
   m_LocalScale: {x: 0.057299435, y: 0.057299435, z: 0.057299435}
   m_Children: []
   m_Father: {fileID: 7469389434637180404}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 156.72, y: 0, z: 0}
 --- !u!198 &2397997850701539974
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -29116,10 +29116,12 @@ MonoBehaviour:
   _particleSystemsToStop:
   - {fileID: 2397997850701539974}
   - {fileID: 481967234972289788}
-  _dropChance: 0.2
+  _dropChance: 0.1
   _powerupsToDrop:
   - {fileID: 3305931981787317369, guid: 44e1b80764ac9c440add9a62158c714d, type: 3}
   - {fileID: 5562372592608952538, guid: 36a02a31e2f22704b8030cab85691322, type: 3}
+  - {fileID: 3007817220136091082, guid: a6c8ee3d19df8404488b3afef7042119, type: 3}
+  - {fileID: 7689689854818086593, guid: 1ece85ff01ce2cd42a854bce9c9613cb, type: 3}
   _onDiedEvent: {fileID: 11400000, guid: f79e938d83c88744692d98205dbe9a75, type: 2}
   _tracking: 1
   _rotateSpeed: 10

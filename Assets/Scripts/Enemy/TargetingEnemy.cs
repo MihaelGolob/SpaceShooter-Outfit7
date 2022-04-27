@@ -50,7 +50,9 @@ public class TargetingEnemy : Enemy {
     }
 
     protected override void Update() {
+        if (GameManager.instance.Paused) return;
         if (_died) return;
+        _lastBumpDamageTime--;
         
         if (_shooting) {
             Shoot();
